@@ -1,7 +1,8 @@
 const express = require('express');
 
 const app = express();
-// commit
+
+app.use(express.json());
 // Não remover esse end-point, ele é necessário para o avaliador
 app.get('/', (request, response) => {
   response.send();
