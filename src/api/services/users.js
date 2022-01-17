@@ -10,7 +10,6 @@ const createUserService = async (name, email, password, role = 'user') => {
   const { error } = await userSchema.validate({ name, email, password });
   if (error) throw errorMessage(400, 'Invalid entries. Try again.');
   const emailExists = await findUserByEmailModel(email);
-  console.log(emailExists);
   if (emailExists) throw errorMessage(409, 'Email already registered');
   const { id } = await createUserModel(name, email, password, role);
   return {

@@ -8,9 +8,9 @@ const createUserModel = async (name, email, password, role) => {
 
 const findUserByEmailModel = async (email) => {
   const conn = await connection();
-  const { insertedId } = await conn.collection('users').find({ email });
-  if (!insertedId) return null;
-  return { id: insertedId };
+  const emailExists = await conn.collection('users').findOne({ email });
+  if (!emailExists) return null;
+  return emailExists;
 };
 
 module.exports = {
