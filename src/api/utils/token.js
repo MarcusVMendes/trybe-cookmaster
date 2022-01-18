@@ -9,7 +9,17 @@ const JWT_CONFIG = {
 
 const createToken = (...data) => jwt.sign({ data }, API_SECRET, JWT_CONFIG);
 
-const validateToken = (token) => console.log(token);
+const validateToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, API_SECRET);
+    console.log(decoded);
+    // olhar o retorno do token
+    return decoded;
+  } catch (err) {
+    console.log('Falha na verificação do token');
+    return null;
+  }
+};
 
 module.exports = {
   createToken,
