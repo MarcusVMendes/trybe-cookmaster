@@ -8,7 +8,6 @@ const loginService = async (userEmail, pass) => {
   if (!user || pass !== user.password) throw errorMessage(401, 'Incorrect username or password');
   const { email, role } = user;
   const userData = { email, role };
-  console.log(userData);
   const token = createToken(userData);
   return { token };
 };

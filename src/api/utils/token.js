@@ -13,7 +13,8 @@ const createToken = (data) =>
 const validateToken = (token) => {
   try {
     const decoded = jwt.verify(token, API_SECRET);
-    const { email } = decoded;
+    const { email } = decoded.data;
+    console.log(`token: ${email}`);
     return email;
   } catch (err) {
     console.log('Falha na verificação do token');

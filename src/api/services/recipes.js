@@ -10,7 +10,6 @@ const createRecipeService = async (name, ingredients, preparation, token) => {
   const { error } = await recipeSchema.validate({ name, ingredients, preparation });
   if (error) throw errorMessage(400, 'Invalid entries. Try again.');
   const email = await validateToken(token);
-  console.log(email);
   if (!email) throw errorMessage(401, 'jwt malformed');
   const { id } = await createRecipeModel(name, ingredients, preparation);
   const { insertedId } = await findUserByEmailModel(email);
