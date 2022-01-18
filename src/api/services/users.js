@@ -3,8 +3,7 @@ const {
   findUserByEmailModel,
 } = require('../models/users');
 const { userSchema } = require('../utils/validate');
-
-const errorMessage = (status, message) => ({ status, message });
+const { errorMessage } = require('../utils/errorMessage');
 
 const createUserService = async (name, email, password, role = 'user') => {
   const { error } = await userSchema.validate({ name, email, password });
