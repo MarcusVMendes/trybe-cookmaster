@@ -10,7 +10,7 @@ const userSchema = Joi.object({
 
 const recipeSchema = Joi.object({
   name: Joi.string().required(),
-  ingredientes: Joi.string().required(),
+  ingredients: Joi.string().required(),
   preparation: Joi.string().required(),
 });
 
