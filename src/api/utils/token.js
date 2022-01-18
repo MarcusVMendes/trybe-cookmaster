@@ -7,14 +7,14 @@ const JWT_CONFIG = {
   algorithm: 'HS256',
 };
 
-const createToken = (...data) => jwt.sign({ data }, API_SECRET, JWT_CONFIG);
-
+const createToken = (data) => 
+  // console.log(data);
+   jwt.sign({ data }, API_SECRET, JWT_CONFIG);
 const validateToken = (token) => {
   try {
     const decoded = jwt.verify(token, API_SECRET);
-    console.log(decoded);
-    // olhar o retorno do token
-    return decoded;
+    const { email } = decoded;
+    return email;
   } catch (err) {
     console.log('Falha na verificação do token');
     return null;

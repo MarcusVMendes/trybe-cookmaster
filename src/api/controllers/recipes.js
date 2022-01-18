@@ -5,7 +5,7 @@ const {
 const createRecipeController = async (req, res, next) => {
   try {
     const { name, ingredients, preparation } = req.body;
-    const { authorization: token } = req.header;
+    const { authorization: token } = req.headers;
     const recipe = await createRecipeService(name, ingredients, preparation, token);
     return res.status(201).json(recipe);
   } catch (err) {
