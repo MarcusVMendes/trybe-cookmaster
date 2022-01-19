@@ -4,6 +4,7 @@ const {
   createRecipeModel,
   getRecipeByIdModel,
   editRecipeModel,
+  deleteRecipeModel,
 } = require('../models/recipes');
 
 const { recipeSchema } = require('../utils/validate');
@@ -56,8 +57,14 @@ const editRecipeService = async (req) => {
   };
 };
 
+const deleteRecipeService = async (id, token) => {
+  if (!token) throw errorMessage(401, 'missing auth token');
+  await deleteRecipeModel(id);
+};
+
 module.exports = {
   createRecipeService,
   getRecipeByIdService,
   editRecipeService,
+  deleteRecipeService,
 };
