@@ -3,6 +3,7 @@ const { ObjectId } = require('mongodb');
 const {
   createRecipeModel,
   getRecipeByIdModel,
+  editRecipeModel,
 } = require('../models/recipes');
 
 const { recipeSchema } = require('../utils/validate');
@@ -35,7 +36,28 @@ const getRecipeByIdService = async (id) => {
   return recipe;
 };
 
+const editRecipeService = async (req) => {
+  const { id: idRecipe } = req.params;
+  const { authorization: token } = req.headers;
+  const { name, ingredients, preparation } = req.body;
+  /* Validacoes */
+  if (!token) throw errorMessage(401, 'missing auth token');
+  const email = await validateToken(token);
+  if (!email) throw errorMessage(401, 'jwt malformed');
+  const { id } = await editRecipeModel(idRecipe, name, ingredients, preparation);
+  const { insertedId } = await findUserByEmailModel(email);
+
+  return {
+    _id: idRecipe,
+    name,
+    ingredients,
+    preparation,
+    userId: insertedId,
+  };
+};
+
 module.exports = {
   createRecipeService,
   getRecipeByIdService,
+  editRecipeService,
 };

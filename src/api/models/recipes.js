@@ -20,8 +20,16 @@ const getRecipeByIdModel = async (id) => {
   return query;
 };
 
+const editRecipeModel = async (id, name, ingredients, preparation) => {
+  const conn = await connection();
+  const { insertedId } = await conn.collection('recipes').updateOne({ _id: ObjectId(id) },
+  { name, ingredients, preparation });
+  return { id: insertedId };
+};
+
 module.exports = {
   createRecipeModel,
   getAllRecipesModel,
   getRecipeByIdModel,
+  editRecipeModel,
 };
