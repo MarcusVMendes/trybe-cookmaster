@@ -37,18 +37,18 @@ const getRecipeByIdService = async (id) => {
 };
 
 const editRecipeService = async (req) => {
-  const { id: idRecipe } = req.params;
+  const { id } = req.params;
   const { authorization: token } = req.headers;
   const { name, ingredients, preparation } = req.body;
   /* Validacoes */
   if (!token) throw errorMessage(401, 'missing auth token');
   const email = await validateToken(token);
   if (!email) throw errorMessage(401, 'jwt malformed');
-  const { id } = await editRecipeModel(idRecipe, name, ingredients, preparation);
-  const { insertedId } = await findUserByEmailModel(email);
+  await editRecipeModel(id, name, ingredients, preparation);
+  const insertedId = await findUserByEmailModel(email);
 
   return {
-    _id: idRecipe,
+    _id: id,
     name,
     ingredients,
     preparation,

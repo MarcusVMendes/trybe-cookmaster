@@ -22,8 +22,10 @@ const getRecipeByIdModel = async (id) => {
 
 const editRecipeModel = async (id, name, ingredients, preparation) => {
   const conn = await connection();
-  const { insertedId } = await conn.collection('recipes').updateOne({ _id: ObjectId(id) },
-  { name, ingredients, preparation });
+  const { insertedId } = await conn.collection('recipes').updateOne(
+    { _id: ObjectId(id) },
+    { $set: { name, ingredients, preparation } },
+  );
   return { id: insertedId };
 };
 
