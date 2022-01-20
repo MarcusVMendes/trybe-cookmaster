@@ -62,9 +62,18 @@ const deleteRecipeService = async (id, token) => {
   await deleteRecipeModel(id);
 };
 
+const addRecipeImageService = async (id, filename) => {
+  const recipe = await getRecipeByIdModel(id);
+  return {
+    ...recipe,
+    image: `localhost:3000/src/uploads/${filename}`,
+  };
+};
+
 module.exports = {
   createRecipeService,
   getRecipeByIdService,
   editRecipeService,
   deleteRecipeService,
+  addRecipeImageService,
 };

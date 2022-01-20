@@ -3,6 +3,7 @@ const {
   getRecipeByIdService,
   editRecipeService,
   deleteRecipeService,
+  addRecipeImageService,
 } = require('../services/recipes');
 const { getAllRecipesModel } = require('../models/recipes');
 
@@ -61,10 +62,23 @@ const deleteRecipeController = async (req, res, next) => {
   }
 };
 
+const addRecipeImageController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { filename } = req.file;
+    const recipe = await addRecipeImageService(id, filename);
+    return res.status(200).json(recipe);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
 module.exports = {
   createRecipeController,
   getAllRecipesController,
   getRecipeByIdController,
   editRecipeController,
   deleteRecipeController,
+  addRecipeImageController,
 };
