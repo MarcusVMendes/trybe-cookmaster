@@ -66,7 +66,8 @@ const addRecipeImageController = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { filename } = req.file;
-    const recipe = await addRecipeImageService(id, filename);
+    const { authorization: token } = req.headers;
+    const recipe = await addRecipeImageService(id, filename, token);
     return res.status(200).json(recipe);
   } catch (err) {
     console.log(err);

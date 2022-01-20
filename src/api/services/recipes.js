@@ -62,10 +62,13 @@ const deleteRecipeService = async (id, token) => {
   await deleteRecipeModel(id);
 };
 
-const addRecipeImageService = async (id, filename) => {
+const addRecipeImageService = async (id, filename, token) => {
   const recipe = await getRecipeByIdModel(id);
+  const email = await validateToken(token);
+  const insertedId = await findUserByEmailModel(email);
   return {
     ...recipe,
+    userId: insertedId,
     image: `localhost:3000/src/uploads/${filename}`,
   };
 };
